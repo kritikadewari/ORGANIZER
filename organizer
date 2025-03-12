@@ -1,0 +1,49 @@
+import os
+import shutil
+folder_path = r"C:\Users\HP\Desktop\Files"
+file_categories = {
+    "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp"],
+    "Documents": [".pdf", ".docx", ".txt", ".xlsx", ".pptx"],
+    "Videos": [".mp4", ".mkv", ".avi", ".mov"],
+    "Music": [".mp3", ".wav", ".aac"],
+    "Archives": [".zip", ".rar", ".tar", ".gz"],
+    "Executables": [".exe", ".msi"],
+    "Scripts": [".py", ".js", ".bat", ".sh"],
+    "Others": []  # For uncategorized files
+}
+
+def organize_files():
+    if not os.path.exists(folder_path):
+        print(f"Error: The folder path '{folder_path}' does not exist.")
+        return
+
+    for category in file_categories.keys():
+        category_path = os.path.join(folder_path, category)
+        if not os.path.exists(category_path):
+            os.makedirs(category_path)
+          
+    for file in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, file)
+        if os.path.isdir(file_path):
+            continue
+          
+        file_ext = os.path.splitext(file)[1].lower()
+    
+        moved = False
+        for category, extensions in file_categories.items():
+            if file_ext in extensions:
+                dest_path = os.path.join(folder_path, category, file)
+                shutil.move(file_path, dest_path)
+                moved = True
+                print(f"Moved: {file} → {category}/")
+
+        # If file does not match any category, move to "Others"
+        if not moved:
+            dest_path = os.path.join(folder_path, "Others", file)
+            shutil.move(file_path, dest_path)
+            print(f"Moved: {file} → Others/")
+
+    print("File organization completed successfully!")
+
+if _name_ == "_main_":
+    organize_files()
