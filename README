@@ -1,0 +1,14 @@
+Project: File Organizer Script
+
+📌 Description:
+This Python script automates file organization by sorting files into categorized subfolders based on their extensions. It helps keep directories clean and organized by automatically moving files into predefined categories like Images, Documents, Videos, Music, Archives, Scripts, and Others.
+
+How It Works:
+
+Scans a specified folder for files.
+Checks file extensions and matches them to predefined categories.
+Creates subfolders if they don’t exist.
+Moves files into their respective subfolders.
+Handles unknown file types by placing them in the "Others" folder.
+
+Technologies Used: Python, OS Module, Shutil Module
